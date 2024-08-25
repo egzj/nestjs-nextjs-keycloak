@@ -11,8 +11,8 @@ importers:
   apps/backend:
     dependencies:
       '@keycloak/keycloak-admin-client':
-        specifier: ^25.0.4
-        version: 25.0.4
+        specifier: 24.0.5
+        version: 24.0.5
       '@nestjs/common':
         specifier: ^10.0.0
         version: 10.4.1(reflect-metadata@0.2.2)(rxjs@7.8.1)
@@ -511,8 +511,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@keycloak/keycloak-admin-client@25.0.4':
-    resolution: {integrity: sha512-mZVFwly7cHZq1XpvJrrOutU0qrUbGo8NUdpb7PS4309x8yG2a4/WyZfh2lgiopBRQ6R/b24RsuHa4GetQPqT+g==}
+  '@keycloak/keycloak-admin-client@24.0.5':
+    resolution: {integrity: sha512-SXDVtQ3ov7GQbxXq51Uq8lzhwzQwNg6XiY50ZA9whuUe2t/0zPT4Zd/LcULcjweIjSNWWgfbDyN1E3yRSL8Qqw==}
     engines: {node: '>=18'}
 
   '@ljharb/through@2.3.13':
@@ -4459,7 +4459,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@keycloak/keycloak-admin-client@25.0.4':
+  '@keycloak/keycloak-admin-client@24.0.5':
     dependencies:
       camelize-ts: 3.0.0
       url-join: 5.0.0
