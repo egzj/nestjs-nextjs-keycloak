@@ -33,8 +33,13 @@ export class KeycloakService {
   }
 
   getUsers = async () => {
-    const users = await this.kcAdminClient.users.find();
+    try {
+      const users = await this.kcAdminClient.users.find();
+      return users;
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
     // this.kcAdminClient.realms.update({ realm: 'master' });
-    return users;
   };
 }
