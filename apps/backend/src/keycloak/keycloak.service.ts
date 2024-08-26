@@ -29,6 +29,7 @@ export class KeycloakService {
       grantType: 'client_credentials',
       clientId: this.configService.get('KEYCLOAK_CLIENT_ID'),
       clientSecret: this.configService.get('KEYCLOAK_CLIENT_SECRET'),
+      scopes: ['openid'],
     });
   }
 

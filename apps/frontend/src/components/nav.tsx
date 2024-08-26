@@ -9,13 +9,13 @@ export default function Nav() {
         </Link>
       </li>
       <li className="my-1">
-        <Link className="hover:bg-gray-500" href="/products">
-          Products
+        <Link className="hover:bg-gray-500" href="/customers">
+          Customers
         </Link>
       </li>
       <li className="my-1">
-        <Link className="hover:bg-gray-500" href="/products/create">
-          Create product
+        <Link className="hover:bg-gray-500" href="/customers/create">
+          Create customer
         </Link>
       </li>
     </ul>

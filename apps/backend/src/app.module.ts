@@ -1,23 +1,20 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { KeycloakModule } from 'src/keycloak/keycloak.module';
 import { ConfigModule } from '@nestjs/config';
-import { ProductsService } from './products/products.service';
-import { ProductsController } from './products/products.controller';
-import { ProductsModule } from './products/products.module';
+import { AppController } from './app.controller';
+import { CustomersModule } from './customers/customers.module';
 import { envVariablesSchema } from './env.config';
+import { CustomerHubsModule } from './customer-hubs/customer-hubs.module';
 
 @Module({
   imports: [
-    KeycloakModule.forRoot({}),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: envVariablesSchema,
     }),
-    ProductsModule,
+    CustomersModule,
+    CustomerHubsModule,
   ],
-  controllers: [AppController, ProductsController],
-  providers: [AppService, ProductsService],
+  controllers: [AppController],
+  providers: [],
 })
 export class AppModule {}
