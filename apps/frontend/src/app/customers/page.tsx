@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import { getAccessToken } from "../../utils/sessionTokenAccessor"
 import { SetDynamicRoute } from "@/utils/setDynamicRoute"
 import moment from "moment"
+import { UpdateCustomerForm } from "@/app/customers/UpdateCustomerForm"
 
 interface ICustomer {
   id: string
@@ -15,6 +16,9 @@ interface ICustomer {
   createdTimestamp: number
   enabled: boolean
   totp: boolean
+  attributes?: {
+    phoneNo?: number[]
+  }
 }
 
 async function getCustomers(): Promise<ICustomer[]> {
@@ -39,67 +43,71 @@ async function getCustomers(): Promise<ICustomer[]> {
 
 export default async function Customers() {
   const session = await getServerSession(authOptions)
-  if (session && session.roles?.includes("viewer")) {
-    try {
-      const customers = await getCustomers()
+  // if (session && session.roles?.includes("viewer")) {
+  try {
+    const customers = await getCustomers()
 
-      return (
-        <main>
-          <SetDynamicRoute></SetDynamicRoute>
-          <h1 className="text-4xl text-center">Customers</h1>
-          <table className="border border-gray-500 text-lg ml-auto mr-auto mt-6">
-            <thead>
-              <tr>
-                <th className="bg-blue-900 p-2 border border-gray-500">id</th>
-                <th className="bg-blue-900 p-2 border border-gray-500">
-                  username
-                </th>
-                <th className="bg-blue-900 p-2 border border-gray-500">
-                  email
-                </th>
-                <th className="bg-blue-900 p-2 border border-gray-500">name</th>
-                <th className="bg-blue-900 p-2 border border-gray-500">
-                  created
-                </th>
+    return (
+      <main>
+        <SetDynamicRoute></SetDynamicRoute>
+        <h1 className="text-4xl text-center">Customers</h1>
+        <table className="border border-gray-500 text-lg ml-auto mr-auto mt-6">
+          <thead>
+            <tr>
+              <th className="bg-blue-200 p-2 border border-gray-500">id</th>
+              <th className="bg-blue-200 p-2 border border-gray-500">
+                username
+              </th>
+              <th className="bg-blue-200 p-2 border border-gray-500">email</th>
+              <th className="bg-blue-200 p-2 border border-gray-500">name</th>
+              <th className="bg-blue-200 p-2 border border-gray-500">
+                Phone No.
+              </th>
+              <th className="bg-blue-200 p-2 border border-gray-500">
+                created
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {customers.map((customer) => (
+              <tr key={customer.id}>
+                <td className="p-1 border border-gray-500">{customer.id}</td>
+                <td className="p-1 border border-gray-500">
+                  {customer.username}
+                </td>
+                <td className="p-1 border border-gray-500">{customer.email}</td>
+                <td className="p-1 border border-gray-500">
+                  {customer.firstName + " " + customer.lastName}
+                </td>
+                <td className="p-1 border border-gray-500">
+                  {customer.attributes?.phoneNo?.[0]}
+                </td>
+                <td className="p-1 border border-gray-500">
+                  {moment(customer.createdTimestamp).format(
+                    "DD MMM YYYY h:mm:ss a"
+                  )}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {customers.map((customer) => (
-                <tr key={customer.id}>
-                  <td className="p-1 border border-gray-500">{customer.id}</td>
-                  <td className="p-1 border border-gray-500">
-                    {customer.username}
-                  </td>
-                  <td className="p-1 border border-gray-500">
-                    {customer.email}
-                  </td>
-                  <td className="p-1 border border-gray-500">
-                    {customer.firstName + " " + customer.lastName}
-                  </td>
-                  <td className="p-1 border border-gray-500">
-                    {moment(customer.createdTimestamp).format(
-                      "DD MMM YYYY h:mm:ss a"
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </main>
-      )
-    } catch (err) {
-      console.error(err)
+            ))}
+          </tbody>
+        </table>
+        <div className="mt-20">
+          <h1 className="text-center text-4xl">Update Customer</h1>
+          <UpdateCustomerForm />
+        </div>
+      </main>
+    )
+  } catch (err) {
+    console.error(err)
+    redirect("/unauthorized")
 
-      return (
-        <main>
-          <h1 className="text-4xl text-center">Products</h1>
-          <p className="text-red-600 text-center text-lg">
-            Sorry, an error happened. Check the server logs.
-          </p>
-        </main>
-      )
-    }
+    // return (
+    //   <main>
+    //     <h1 className="text-4xl text-center">Products</h1>
+    //     <p className="text-red-600 text-center text-lg">
+    //       Sorry, an error happened. Check the server logs.
+    //     </p>
+    //   </main>
+    // )
   }
-
-  redirect("/unauthorized")
 }

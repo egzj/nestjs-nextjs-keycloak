@@ -1,6 +1,8 @@
 import KcAdminClient from '@keycloak/keycloak-admin-client';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { UpdateRealmDto } from 'src/customer-hubs/dtos/update-realm.dto';
+import { UpdateCustomerDto } from 'src/customers/dtos/update-customer.dto';
 import { EnvironmentVariables } from 'src/env.config';
 
 @Injectable()
@@ -33,14 +35,53 @@ export class KeycloakService {
     });
   }
 
+  reauthenticate = async () => {
+    await this.kcAdminClient.auth({
+      grantType: 'client_credentials',
+      clientId: this.configService.get('KEYCLOAK_CLIENT_ID'),
+      clientSecret: this.configService.get('KEYCLOAK_CLIENT_SECRET'),
+      scopes: ['openid'],
+    });
+  };
+
   getUsers = async () => {
-    try {
-      const users = await this.kcAdminClient.users.find();
-      return users;
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
-    // this.kcAdminClient.realms.update({ realm: 'master' });
+    await this.reauthenticate();
+    const users = await this.kcAdminClient.users.find();
+    return users;
+  };
+
+  updateUser = async (customerId: string, updateDto: UpdateCustomerDto) => {
+    await this.reauthenticate();
+    const ret = await this.kcAdminClient.users.update(
+      {
+        id: customerId,
+      },
+      updateDto,
+    );
+    return ret;
+  };
+
+  getRealms = async () => {
+    await this.reauthenticate();
+    const realms = await this.kcAdminClient.realms.find();
+    return realms;
+  };
+
+  getRealm = async (realmName: string) => {
+    await this.reauthenticate();
+    const realm = await this.kcAdminClient.realms.findOne({
+      realm: realmName,
+    });
+    return realm;
+  };
+
+  updateRealm = async (realmName: string, updateDto: UpdateRealmDto) => {
+    await this.reauthenticate();
+    await this.kcAdminClient.realms.update(
+      {
+        realm: realmName,
+      },
+      updateDto,
+    );
   };
 }

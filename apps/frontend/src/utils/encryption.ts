@@ -9,7 +9,8 @@ export function encrypt(text: string) {
 }
 
 export function decrypt(encryptedString: string) {
-  const secretKey = process.env.NEXTAUTH_SECRET!
+  const secretKey =
+    process.env.NEXTAUTH_SECRET! || process.env.NEXT_PUBLIC_NEXTAUTH_SECRET!
   const cryptr = new Cryptr(secretKey)
 
   const text = cryptr.decrypt(encryptedString)

@@ -40,7 +40,6 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, account }) {
-      console.log("account:", account)
       const nowTimeStamp = Math.floor(Date.now() / 1000)
 
       if (account) {

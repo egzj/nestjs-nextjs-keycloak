@@ -9,6 +9,8 @@ async function bootstrap() {
   const port = configService.get('PORT', { infer: true });
   const env = configService.get('NODE_ENV', { infer: true });
 
+  app.enableCors();
+
   await app.listen(port, () => {
     console.log(`Server is running on ${port} in ${env} mode`);
   });
