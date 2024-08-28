@@ -1,3 +1,4 @@
+import { UpdateCustomerHubForm } from "@/app/customer-hubs/UpdateCustomerHubForm"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { getAccessToken } from "@/utils/sessionTokenAccessor"
 import { useSession } from "next-auth/react"
@@ -5,6 +6,8 @@ import { redirect, useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 interface ICustomerHub {
+  id: string
+  realm: string
   displayName: string
   displayNameHtml: string
   notBefore: number
@@ -79,6 +82,8 @@ export default async function CustomerHubs() {
               </CardTitle>
               <CardContent className="mt-4">
                 <ul>
+                  <li>ID: {customerHub.id}</li>
+                  <li>Realm: {customerHub.realm}</li>
                   <li>
                     accessTokenLifespan: {customerHub.accessTokenLifespan}{" "}
                     seconds
@@ -95,6 +100,10 @@ export default async function CustomerHubs() {
               </CardContent>
             </Card>
           ))}
+        </div>
+        <div className="mt-20">
+          <h1 className="text-center text-4xl">Update Customer Hub</h1>
+          <UpdateCustomerHubForm />
         </div>
       </div>
     )

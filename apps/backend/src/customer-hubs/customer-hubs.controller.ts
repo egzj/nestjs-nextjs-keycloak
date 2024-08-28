@@ -34,11 +34,11 @@ export class CustomerHubsController {
 
   @Put(':realm')
   async update(
-    @Param('realm') realmName: string,
+    @Param('realm') realm: string,
     @Body() { displayName }: UpdateRealmDto,
   ) {
     try {
-      await this.keycloakService.updateRealm(realmName, { displayName });
+      await this.keycloakService.updateRealm(realm, { displayName });
       return { success: true };
     } catch (err) {
       console.error(err.message);
