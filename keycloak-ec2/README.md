@@ -74,6 +74,14 @@ export POSTGRES_PASSWORD=password
 source ./set-env.sh
 ```
 
+# Update nginx.conf domains
+
+```shell
+server_name keycloak-demo01.duckdns.com;
+ssl_certificate "/etc/letsencrypt/live/keycloak-demo01.duckdns.com/fullchain.pem";
+ssl_certificate_key "/etc/letsencrypt/live/keycloak-demo01.duckdns.com/privkey.pem"
+```
+
 # Run keycloak server
 
 ```shell
