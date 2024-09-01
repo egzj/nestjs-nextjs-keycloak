@@ -69,7 +69,7 @@ services:
       - 1026:1025 # smtp server
       - 8026:8025 # web ui
     networks:
-      - keycloak_network
+      - keycloak-network
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4_container
@@ -77,12 +77,12 @@ services:
     ports:
       - "9090:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@bookmyshow.com
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
       PGADMIN_DEFAULT_PASSWORD: password
     volumes:
       - ./pgadmin-data:/var/lib/pgadmin
     networks:
-      - keycloak_network
+      - keycloak-network
 
 networks:
   keycloak-network:
