@@ -46,6 +46,8 @@ services:
       KC_MAIL_SMTP_PASSWORD: $SMTP_PASSWORD
       KC_MAIL_SMTP_AUTH: true
       KC_MAIL_SMTP_SSL: true
+    volumes:
+      - ./themes:/opt/keycloak/themes/
   nginx:
     image: nginx:latest
     container_name: nginx
