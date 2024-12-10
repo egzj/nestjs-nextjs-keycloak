@@ -19,7 +19,6 @@ services:
     restart: always
     ports:
       - "8080:8080"
-      - "8443:8443"
     depends_on:
       - postgres
     command:
@@ -28,7 +27,6 @@ services:
       - keycloak-network
     environment:
       KC_HOSTNAME: $KC_HOSTNAME
-      KC_HOSTNAME_STRICT_HTTPS: "true"
       KC_PROXY: edge
       KEYCLOAK_ADMIN: $KEYCLOAK_ADMIN
       KEYCLOAK_ADMIN_PASSWORD: $KEYCLOAK_ADMIN_PASSWORD
@@ -59,23 +57,23 @@ services:
     logging:
       driver: "none" # disable saving logs
     ports:
-      - 1026:1025 # smtp server
-      - 8026:8025 # web ui
+      - 8025:8025 # web ui
     networks:
       - keycloak-network
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4_container
-    restart: always
-    ports:
-      - "9090:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: password
-    volumes:
-      - ./pgadmin-data:/var/lib/pgadmin
-    networks:
-      - keycloak-network
+  # # Optional
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin4_container
+  #   restart: always
+  #   ports:
+  #     - "9090:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+  #     PGADMIN_DEFAULT_PASSWORD: password
+  #   volumes:
+  #     - ./pgadmin-data:/var/lib/pgadmin
+  #   networks:
+  #     - keycloak-network
 
 networks:
   keycloak-network:
