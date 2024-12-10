@@ -27,13 +27,11 @@ services:
     networks:
       - keycloak-network
     environment:
-      KC_HOSTNAME_URL: $KC_HOSTNAME_URL
+      KC_HOSTNAME: $KC_HOSTNAME
       KC_HOSTNAME_STRICT_HTTPS: "true"
-      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
       KC_PROXY: edge
       KEYCLOAK_ADMIN: $KEYCLOAK_ADMIN
       KEYCLOAK_ADMIN_PASSWORD: $KEYCLOAK_ADMIN_PASSWORD
-      # KEYCLOAK_FRONTEND_URL: $KEYCLOAK_FRONTEND_URL
       # Database Configuration
       KC_DB: postgres
       KC_DB_URL_HOST: postgres

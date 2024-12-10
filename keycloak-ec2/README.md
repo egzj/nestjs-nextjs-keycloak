@@ -59,8 +59,6 @@ This creates the following files:
 
 # Update set-env.sh file
 
-Check below property for nginx.conf and update correct server host
-
 ```shell
 export KC_HOSTNAME_URL=https://keycloak-demo01.duckdns.com
 export KEYCLOAK_FRONTEND_URL=https://keycloak-demo01.duckdns.com/auth
@@ -74,7 +72,9 @@ export POSTGRES_PASSWORD=password
 source ./set-env.sh
 ```
 
-# Update nginx.conf domains
+# Update nginx.conf file
+
+Check nginx.conf and update correct server host
 
 ```shell
 server_name keycloak-demo01.duckdns.com;
